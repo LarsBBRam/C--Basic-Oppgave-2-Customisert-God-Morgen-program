@@ -57,54 +57,6 @@ class Program
         back to main menu.
 
         */
-        Random random = new();
-
-
-        List<string> morningGreetings = new()
-        {
-            "Good morning",
-            "Top of the morning to your",
-            "Rise and Shine",
-            "`Morning",
-            "Happy morning to you"
-        };
-        List<string> dayGreetings = new()
-        {
-            "Hello",
-            "Hi",
-            "Hey",
-            "Good to see you",
-            "Yo!"
-        };
-        List<string> afternoonGreetings = new()
-        {
-            "Good afternoon",
-            "`Afternoon",
-            "How do you do"
-        };
-        List<string> eveningGreetings = new()
-        {
-            "Good evening",
-            "Good eve",
-            "`Evening",
-            "I hope you're doing well this evening",
-            "Hello"
-        };
-        List<string> nightGreetings = new()
-        {
-            "Hello",
-            "Hi",
-            "What's up",
-            "How's it going"
-        };
-
-        int morningIndex = random.Next(morningGreetings.Count);
-        int dayIndex = random.Next(dayGreetings.Count);
-        int afternoonIndex = random.Next(afternoonGreetings.Count);
-        int eveningIndex = random.Next(eveningGreetings.Count);
-        int nightIndex = random.Next(nightGreetings.Count);
-
-        Console.WriteLine(morningGreetings[morningIndex]);
 
         string? mainMenuInput = "";
 
@@ -130,15 +82,15 @@ class Program
                 switch (mainMenuInput)
                 {
                     case "1":
-                        TimeOfDayGreeting.TimeOfDayChecker();
+                        TimeOfDayChecker();
                         break;
                     case "2":
-
+                        ListGreetingMenu();
                         break;
 
                     case "3":
-                    //password check.
-                    //if succesfull, proceed to enter new
+                        PasswordChecker();
+                        break;
                     case "4":
                         break;
                     default:
@@ -150,43 +102,338 @@ class Program
 
     }
 
-
-
-    public static bool TimeOfDayChecker()
+    public static void ListGreetingMenu()
     {
+        string? listGreetingMenuInput;
+
+        do
+        {
+
+            Console.Clear();
+            Console.WriteLine("Please choose what time of day you want a list of greetings for.");
+            Console.WriteLine();
+            Console.WriteLine("1. Morning");
+            Console.WriteLine("2. Day");
+            Console.WriteLine("3. Afternoon");
+            Console.WriteLine("4. Evening");
+            Console.WriteLine("5. Night");
+            Console.WriteLine("6. Go back");
+            Console.WriteLine();
+
+#pragma warning disable CS8602 //bad habit, but the warning does nothing, and is accounted for.
+            listGreetingMenuInput = Console.ReadLine().Replace(" ", "").Trim();
+#pragma warning restore CS8602
+            if (listGreetingMenuInput != null && (int.TryParse(listGreetingMenuInput, out int input)))
+            {
+                switch (input.ToString())
+                {
+                    case "1":
+                        foreach (var greeting in GreetingsLists.morningGreetings)
+                        {
+
+                            Console.WriteLine();
+                            Console.WriteLine(greeting);
+                        }
+                        Console.WriteLine();
+                        Console.WriteLine("These are the morning greetings currently stored.");
+                        Console.WriteLine("Press enter to return");
+                        Console.ReadLine();
+                        break;
+
+                    case "2":
+                        foreach (var greeting in GreetingsLists.dayGreetings)
+                        {
+                            Console.WriteLine();
+                            Console.WriteLine(greeting);
+                        }
+                        Console.WriteLine();
+                        Console.WriteLine("These are the greetings suitable for daytime currently stored.");
+                        Console.WriteLine("Press enter to return");
+                        Console.ReadLine();
+                        break;
+
+                    case "3":
+                        foreach (var greeting in GreetingsLists.afternoonGreetings)
+                        {
+                            Console.WriteLine();
+                            Console.WriteLine(greeting);
+                        }
+                        Console.WriteLine();
+                        Console.WriteLine("These are the afternoon greetings currently stored.");
+                        Console.WriteLine("Press enter to return");
+                        Console.ReadLine();
+                        break;
+
+                    case "4":
+
+                        foreach (var greeting in GreetingsLists.eveningGreetings)
+                        {
+                            Console.WriteLine();
+                            Console.WriteLine(greeting);
+                        }
+
+                        Console.WriteLine();
+                        Console.WriteLine("These are the evening greetings currently stored.");
+                        Console.WriteLine("Press enter to return");
+                        Console.ReadLine();
+                        break;
+
+                    case "5":
+
+                        foreach (var greeting in GreetingsLists.nightGreetings)
+                        {
+                            Console.WriteLine();
+                            Console.WriteLine(greeting);
+                        }
+                        Console.WriteLine();
+                        Console.WriteLine("These are the morning greetings currently stored.");
+                        Console.WriteLine("Press enter to return");
+                        Console.ReadLine();
+                        break;
+
+                }
+            }
+        } while (listGreetingMenuInput != "6");
+
+
+    }
+
+    public static void NewGreetingStorer()
+    {
+
+        string? listStorageMenuInput;
+        do
+        {
+            Console.Clear();
+            Console.WriteLine("In what category would you like to enter your greeting?");
+            Console.WriteLine();
+            Console.WriteLine("1. Morning");
+            Console.WriteLine("2. Day");
+            Console.WriteLine("3. Afternoon");
+            Console.WriteLine("4. Evening");
+            Console.WriteLine("5. Night");
+            Console.WriteLine("6. Go back");
+            Console.WriteLine();
+
+#pragma warning disable CS8602 //bad habit, but the warning does nothing, and is accounted for.
+            listStorageMenuInput = Console.ReadLine().Replace(" ", "").Trim();
+#pragma warning restore CS8602
+            if (listStorageMenuInput != null && (int.TryParse(listStorageMenuInput, out int input)))
+            {
+                switch (input.ToString())
+                {
+                    case "1":
+                        Console.WriteLine("Please enter your new morning greeting.");
+                        string? morningInput = Console.ReadLine();
+                        if (morningInput != null)
+                        {
+                            GreetingsLists.morningGreetings.Add(morningInput);
+                            Console.WriteLine($"'{morningInput}' was added to the morning greetings. Press enter to return to return to the previous menu.");
+                            Console.ReadLine();
+                        }
+                        break;
+                    case "2":
+                        Console.WriteLine("Please enter your new day greeting.");
+                        string? dayInput = Console.ReadLine();
+                        if (dayInput != null)
+                        {
+                            GreetingsLists.dayGreetings.Add(dayInput);
+                            Console.WriteLine($"'{dayInput}' was added to the day greetings. Press enter to return to return to the previous menu.");
+                            Console.ReadLine();
+                        }
+                        break;
+                    case "3":
+                        Console.WriteLine("Please enter your new afternoon greeting.");
+                        string? afternoonInput = Console.ReadLine();
+                        if (afternoonInput != null)
+                        {
+                            GreetingsLists.afternoonGreetings.Add(afternoonInput);
+                            Console.WriteLine($"'{afternoonInput}' was added to the afternoon greetings. Press enter to return to return to the previous menu.");
+                            Console.ReadLine();
+                        }
+                        break;
+                    case "4":
+                        Console.WriteLine("Please enter your new evening greeting.");
+                        string? eveningInput = Console.ReadLine();
+                        if (eveningInput != null)
+                        {
+                            GreetingsLists.eveningGreetings.Add(eveningInput);
+                            Console.WriteLine($"'{eveningInput}' was added to the evening greetings. Press enter to return to return to the previous menu.");
+                            Console.ReadLine();
+                        }
+                        break;
+                    case "5":
+                        Console.WriteLine("Please enter your new night greeting.");
+                        string? nightInput = Console.ReadLine();
+                        if (nightInput != null)
+                        {
+                            GreetingsLists.nightGreetings.Add(nightInput);
+                            Console.WriteLine($"'{nightInput}' was added to the night greetings. Press enter to return to return to the previous menu.");
+                            Console.ReadLine();
+                        }
+                        break;
+                }
+            }
+        } while (listStorageMenuInput != "6");
+    }
+    public static void PasswordChecker()
+    {
+        string passwordInput = "";
+
+        Console.WriteLine("Please enter the password");
+
+#pragma warning disable CS8602
+        passwordInput = Console.ReadLine().Trim();
+#pragma warning restore CS8602
+
+        if (passwordInput != null && passwordInput == "passord")
+        {
+            Console.WriteLine("Password Accepted. Press enter to proceed.");
+            Console.ReadLine();
+            NewGreetingStorer();
+        }
+        else
+        {
+            Console.WriteLine("Incorrect password, please contact an administrator if you need access.");
+            Console.WriteLine("Press enter to return.");
+            Console.ReadLine();
+
+        }
+    }
+    public class GreetingsLists
+    {
+        public static List<string> morningGreetings = new()
+        {
+            "Good morning",
+            "Top of the morning to you",
+            "Rise and Shine",
+            "`Morning",
+            "Happy morning to you"
+        };
+        public static List<string> dayGreetings = new()
+        {
+            "Hello",
+            "Hi",
+            "Hey",
+            "Good to see you",
+            "Yo!"
+        };
+        public static List<string> afternoonGreetings = new()
+        {
+            "Good afternoon",
+            "`Afternoon",
+            "How do you do"
+        };
+        public static List<string> eveningGreetings = new()
+        {
+            "Good evening",
+            "Good eve",
+            "`Evening",
+            "I hope you're doing well this evening",
+            "Hello"
+        };
+        public static List<string> nightGreetings = new()
+        {
+            "Hello",
+            "Hi",
+            "What's up",
+            "How's it going"
+        };
+    }
+
+    //This function checks the time of day, and creates a greeting from a random set of lists
+    // based on the time of day found.
+    public static void TimeOfDayChecker()
+    {
+        Random random = new();
+
+
+
+        int morningIndex = random.Next(GreetingsLists.morningGreetings.Count);
+        int dayIndex = random.Next(GreetingsLists.dayGreetings.Count);
+        int afternoonIndex = random.Next(GreetingsLists.afternoonGreetings.Count);
+        int eveningIndex = random.Next(GreetingsLists.eveningGreetings.Count);
+        int nightIndex = random.Next(GreetingsLists.nightGreetings.Count);
+
+
         int currentTime = DateTime.Now.Hour;
-        bool morning;
-        bool day;
-        bool afternoon;
-        bool evening;
-        bool night;
+        bool morning = false;
+        bool day = false;
+        bool afternoon = false;
+        bool evening = false;
+        bool night = false;
 
         if (currentTime > 3 && currentTime < 11)
         {
             morning = true;
-            return morning;
+
         }
         else if (currentTime >= 11 && currentTime < 15)
         {
             day = true;
-            return day;
+
         }
         else if (currentTime >= 15 && currentTime < 18)
         {
             afternoon = true;
-            return afternoon;
+
         }
         else if (currentTime >= 18 && currentTime < 22)
         {
             evening = true;
-            return evening;
+
         }
         else
         {
             night = true;
-            return night;
+
         }
 
+        if (morning)
+        {
+            Console.WriteLine("Your greeting is:");
+            Console.WriteLine();
+            Console.WriteLine(GreetingsLists.morningGreetings[morningIndex]);
+            Console.WriteLine();
+            Console.WriteLine("Press enter to return");
+            Console.ReadLine();
+        }
+        else if (day)
+        {
+            Console.WriteLine("Your greeting is:");
+            Console.WriteLine();
+            Console.WriteLine(GreetingsLists.dayGreetings[dayIndex]);
+            Console.WriteLine();
+            Console.WriteLine("Press enter to return");
+            Console.ReadLine();
+        }
+        else if (afternoon)
+        {
+            Console.WriteLine("Your greeting is:");
+            Console.WriteLine();
+            Console.WriteLine(GreetingsLists.afternoonGreetings[afternoonIndex]);
+            Console.WriteLine();
+            Console.WriteLine("Press enter to return");
+            Console.ReadLine();
+        }
+        else if (evening)
+        {
+            Console.WriteLine("Your greeting is:");
+            Console.WriteLine();
+            Console.WriteLine(GreetingsLists.eveningGreetings[eveningIndex]);
+            Console.WriteLine();
+            Console.WriteLine("Press enter to return");
+            Console.ReadLine();
+        }
+        else if (night)
+        {
+            Console.WriteLine("Your greeting is:");
+            Console.WriteLine();
+            Console.WriteLine(GreetingsLists.nightGreetings[nightIndex]);
+            Console.WriteLine();
+            Console.WriteLine("Press enter to return");
+            Console.ReadLine();
+        }
     }
 
 }
