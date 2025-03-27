@@ -150,48 +150,43 @@ class Program
 
     }
 
-    class TimeOfDayGreeting
+
+
+    public static bool TimeOfDayChecker()
     {
+        int currentTime = DateTime.Now.Hour;
+        bool morning;
+        bool day;
+        bool afternoon;
+        bool evening;
+        bool night;
 
-        public static bool TimeOfDayChecker()
+        if (currentTime > 3 && currentTime < 11)
         {
-            int currentTime = DateTime.Now.Hour;
-            bool morning;
-            bool day;
-            bool afternoon;
-            bool evening;
-            bool night;
-
-            if (currentTime > 3 && currentTime < 11)
-            {
-                morning = true;
-                return morning;
-            }
-            else if (currentTime >= 11 && currentTime < 15)
-            {
-                day = true;
-                return day;
-            }
-            else if (currentTime >= 15 && currentTime < 18)
-            {
-                afternoon = true;
-                return afternoon;
-            }
-            else if (currentTime >= 18 && currentTime < 22)
-            {
-                evening = true;
-                return evening;
-            }
-            else
-            {
-                night = true;
-                return night;
-            }
+            morning = true;
+            return morning;
+        }
+        else if (currentTime >= 11 && currentTime < 15)
+        {
+            day = true;
+            return day;
+        }
+        else if (currentTime >= 15 && currentTime < 18)
+        {
+            afternoon = true;
+            return afternoon;
+        }
+        else if (currentTime >= 18 && currentTime < 22)
+        {
+            evening = true;
+            return evening;
+        }
+        else
+        {
+            night = true;
+            return night;
         }
 
-        public static string TimeContingentGreeting(TimeOfDayChecker)
-        {
-
-        }
     }
+
 }
